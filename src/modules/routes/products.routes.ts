@@ -7,6 +7,7 @@ const productsController = new ProductsController();
 
 productsRouter.get('/', productsController.index);
 
+//get products
 productsRouter.get(
   '/:id',
   celebrate({
@@ -39,7 +40,7 @@ productsRouter.put(
     },
     [Segments.BODY]: {
       name: Joi.string().required(),
-      price: Joi.number().required(),
+      price: Joi.number().precision(2).required(),
       quantity: Joi.number().required(),
     },
   }),
