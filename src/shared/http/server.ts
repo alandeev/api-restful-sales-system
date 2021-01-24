@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+import '@shared/typeorm';
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -15,25 +17,18 @@ app.use(express.json());
 app.use(routes);
 
 //midleware error
-app.use(
-  (error: Error, request: Request, response: Response, next: NextFunction) => {
-    if (error instanceof AppError) {
-      return response.status(error.statusCode).json({
-        status: 'error',
-        message: error.message,
-      });
-    }
-
-    return response.status(500).json({
+app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
+  if (error instanceof AppError) {
+    return response.status(error.statusCode).json({
       status: 'error',
-      message: 'Internal server error',
+      message: error.message,
     });
-  },
-);
+  }
 
-app.listen(3333, () =>
-  console.log(
-    process.env.SERVER_PORT,
-    `Server running in the port ${process.env.SERVER_PORT}`,
-  ),
-);
+  return response.status(500).json({
+    status: 'error',
+    message: 'Internal server error',
+  });
+});
+
+app.listen(3333, () => console.log(process.env.SERVER_PORT, `Server running in the port ${process.env.SERVER_PORT}`));
