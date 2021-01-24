@@ -21,7 +21,7 @@ productsRouter.get(
 productsRouter.post(
   '/',
   celebrate({
-    [Segments.PARAMS]: {
+    [Segments.BODY]: {
       name: Joi.string().required(),
       price: Joi.number().required(),
       quantity: Joi.number().required(),
@@ -35,6 +35,9 @@ productsRouter.put(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
       name: Joi.string().required(),
       price: Joi.number().required(),
       quantity: Joi.number().required(),
@@ -48,9 +51,7 @@ productsRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
-      name: Joi.string().required(),
-      price: Joi.number().required(),
-      quantity: Joi.number().required(),
+      id: Joi.string().uuid().required(),
     },
   }),
   productsController.delete,
