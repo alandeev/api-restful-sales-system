@@ -22,11 +22,16 @@ class SendForgotPasswordEmailService {
       throw new HttpException("E-mail not found", 401);
     }
 
+    const tokenAlreadyExist = await userTokensRepository.getTokenNotUsed(user.id);
+    if (tokenAlreadyExist) {
+      await userTokensRepository.remove(tokenAlreadyExist);
+    }
+
     const userToken = await userTokensRepository.generate(user.id);
 
     return {
       token: userToken.id,
-      user_id: userToken.user_id
+      user_id: userToken.userId,
     };
   }
 }

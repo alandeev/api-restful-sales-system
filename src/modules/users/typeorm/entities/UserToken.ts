@@ -6,11 +6,7 @@ class UserTokens {
   id: string;
 
   @Column()
-  @Generated('uuid')
-  token: string;
-
-  @Column()
-  user_id: string;
+  userId: string;
 
   @Column('boolean')
   status: boolean;

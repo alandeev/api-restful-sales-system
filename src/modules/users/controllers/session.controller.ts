@@ -21,20 +21,6 @@ class UserController {
 
     return response.json(user);
   }
-
-  public async recovery(request: Request, response: Response): Promise<Response> {
-    const sendForgotPasswordEmailService = new SendForgotPasswordEmailService();
-    const { user_id, token } = await sendForgotPasswordEmailService.execute(request.body);
-
-    return response.json({ user_id, token });
-  }
-
-  public async changepwd(request: Request, response: Response): Promise<Response> {
-    const recoveryPasswordService = new RecoveryPasswordService();
-    const user = await recoveryPasswordService.execute(request.body);
-
-    return response.json(user);
-  }
 }
 
 export default UserController;

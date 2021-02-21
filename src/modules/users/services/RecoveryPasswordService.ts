@@ -1,7 +1,7 @@
 import HttpException from '@shared/errors/HttpException';
 import bcrypt from 'bcryptjs'
 import { isAfter, addHours } from 'date-fns';
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, useContainer } from 'typeorm';
 import User from '../typeorm/entities/User';
 import { UserRepository } from '../typeorm/repositories/UserRepository';
 import { UserTokensRepository } from '../typeorm/repositories/UserTokensRepository';
@@ -25,7 +25,7 @@ class RecoveryPasswordService {
       throw new HttpException("Token was used", 401);
     }
 
-    const user = await userRepository.findById(_token.user_id);
+    const user = await userRepository.findById(_token.userId);
     if(!user) {
       throw new HttpException("User not exists", 401);
     }
@@ -38,6 +38,11 @@ class RecoveryPasswordService {
       throw new HttpException("Token expired", 401);
     }
 
+    if (await bcrypt.compare(new_password, user.password)) {
+      throw new HttpException('Password cannot be the same');
+    }
+
+    //Change date bellow
     const hashPassword = await bcrypt.hash(new_password, 8);
 
     user.password = hashPassword;

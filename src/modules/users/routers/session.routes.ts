@@ -21,27 +21,4 @@ routes.post(
   sessionController.authorize
 );
 
-//recorery password by email
-routes.post(
-  '/recovery',
-  celebrate({
-    [Segments.BODY]: {
-      email: Joi.string().email().min(8).max(80).required()
-    }
-  }),
-  sessionController.recovery
-);
-
-//change password by token
-routes.post(
-  '/changepwd',
-  celebrate({
-    [Segments.BODY]: {
-      token: Joi.string().uuid().required(),
-      new_password: Joi.string().min(4).max(30).required()
-    }
-  }),
-  sessionController.changepwd
-);
-
 export default routes;
