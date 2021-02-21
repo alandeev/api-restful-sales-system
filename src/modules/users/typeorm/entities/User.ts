@@ -1,9 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne } from 'typeorm';
+import UserPerfil from './UserPerfil';
 
 @Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   name: string;
@@ -14,8 +15,9 @@ class User {
   @Column()
   password: string;
 
-  @Column()
-  avatar: string;
+  @OneToOne(type => UserPerfil, { cascade: true })
+  @JoinColumn()
+  perfil: UserPerfil;
 
   @CreateDateColumn()
   created_at: Date;

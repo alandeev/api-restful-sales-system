@@ -1,8 +1,10 @@
-import AppError from '@shared/errors/AppError';
-import { getCustomRepository } from 'typeorm';
+import HttpException from '@shared/errors/HttpException';
 import User from '../typeorm/entities/User';
-import UserRepository from '../typeorm/repositories/UserRepository';
 import bcrypt from 'bcryptjs';
+
+import { getCustomRepository, getRepository } from 'typeorm';
+import { UserRepository } from '../typeorm/repositories/UserRepository';
+import UserPerfil from '../typeorm/entities/UserPerfil';
 
 interface IRequest {
   name: string;
@@ -10,29 +12,29 @@ interface IRequest {
   password: string;
 }
 
-class CreateUserService {
+export class CreateUserService {
   public async execute({ name, email, password }: IRequest): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
+    const userPerfilRepository = getRepository(UserPerfil);
 
-    const userExists = await userRepository.findOne({
-      where: { email },
-    });
-
-    if (userExists) {
-      throw new AppError('Email already exists');
+    const emailExists = await userRepository.findByEmail(email);
+    if(emailExists) {
+      throw new HttpException("Email already exists", 400);
     }
 
-    const hashedPassword = await bcrypt.hash(password, 8);
+    const hashPassword = await bcrypt.hash(password, 8);
 
     const user = userRepository.create({
       name,
       email,
-      password: hashedPassword,
+      password: hashPassword
     });
+
+    const perfil = userPerfilRepository.create();
+    user.perfil = perfil;
+
     await userRepository.save(user);
 
     return user;
   }
 }
-
-export default CreateUserService;

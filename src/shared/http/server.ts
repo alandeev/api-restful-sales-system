@@ -1,37 +1,38 @@
 import 'reflect-metadata';
 import '@shared/typeorm';
-import express, { Request, Response } from 'express';
-import 'express-async-errors'; // necessário para tratamento errors.
-import cors from 'cors';
-import dotenv from 'dotenv';
+import 'express-async-errors'; // error
 import { errors } from 'celebrate';
+import express, { NextFunction, Request, Response } from 'express';
 
-import routes from './routes';
-import AppError from '@shared/errors/AppError';
+import routes from './routers';
+import HttpException from '@shared/errors/HttpException';
+import { resolve } from 'path';
+import { uploadConfig } from '@config/upload.config';
 
 const app = express();
 
-//settings
-dotenv.config();
-app.use(cors());
+app.use(express.static(uploadConfig.dest));
 app.use(express.json());
 
-app.use(routes);
+//routes
+app.use('/', routes);
 app.use(errors());
 
-//midleware error
-app.use((error: Error, request: Request, response: Response) => {
-  if (error instanceof AppError) {
+app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
+  if(error instanceof HttpException) {
     return response.status(error.statusCode).json({
-      status: 'error',
-      message: error.message,
+      status: "error",
+      message: error.message
     });
   }
 
-  return response.status(500).json({
-    status: 'error',
-    message: 'Internal server error',
-  });
-});
+  console.log({ error: error.message });
 
-app.listen(3333, () => console.log(process.env.SERVER_PORT, `Server running in the port ${process.env.SERVER_PORT}`));
+  return response.status(500).json({
+    statusCode: "error",
+    message: "Ocorreu um problema interno no servidor"
+  })
+})
+
+
+app.listen(3000, () => console.log(`Server running in the port 3000`));

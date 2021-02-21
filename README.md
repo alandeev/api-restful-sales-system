@@ -1,15 +1,12 @@
-# API REST FULL SALES SYSTEM 😁
+## NodeJS with Typescript + TypeORM
 
-### I'm still projecting, wait, wait! 💙
+### Features
+- sessions 'token jwt'
+- migrations/database with 'typeorm'
+- structure to project scalable
 
-## Project Resume:
-> ideas/stacks/modules/tools/concepts
-- Typescript [ language ]
-- TypeORM / Docker / PostGres [ db service ]
-- Great structure for scalable projects [ concepts/ideia ]
-- Eslint / Prettier / EditorConfig [ code service ]
+### Routers Resumed
 
-## Concepts for you to implement!
-> Everything i wrote bellow was implemented in this repository.
-
-- class AppError and handle errors of the improved format
+- Users
+- Sessions and SessionsRecovery
+- Upload

@@ -2,22 +2,14 @@ import { EntityRepository, Repository } from 'typeorm';
 import User from '../entities/User';
 
 @EntityRepository(User)
-class UserRepository extends Repository<User> {
-  findByEmail(email: string): Promise<User | undefined> {
+export class UserRepository extends Repository<User> {
+  findByEmail(email: string): Promise<User | undefined>  {
     return this.findOne({
-      where: { email },
-    });
+      where: { email }
+    })
   }
 
-  findByName(name: string): Promise<User | undefined> {
-    return this.findOne({
-      where: { name },
-    });
-  }
-
-  findById(id: number): Promise<User | undefined> {
-    return this.findOne(id);
+  findById(user_id: string): Promise<User | undefined> {
+    return this.findOne(user_id);
   }
 }
-
-export default UserRepository;
