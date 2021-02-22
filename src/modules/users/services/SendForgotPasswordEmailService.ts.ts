@@ -1,3 +1,4 @@
+import EtherealMail from '@config/mail/EtherealMail';
 import HttpException from '@shared/errors/HttpException';
 import { getCustomRepository } from 'typeorm';
 
@@ -7,13 +8,8 @@ interface IRequest {
   email: string;
 }
 
-interface IResponse {
-  token: string;
-  user_id: string;
-}
-
 class SendForgotPasswordEmailService {
-  public async execute({ email }: IRequest): Promise<IResponse> {
+  public async execute({ email }: IRequest): Promise<void> {
     const userRepository = getCustomRepository(UserRepository);
     const userTokensRepository = getCustomRepository(UserTokensRepository);
 
@@ -29,10 +25,10 @@ class SendForgotPasswordEmailService {
 
     const userToken = await userTokensRepository.generate(user.id);
 
-    return {
-      token: userToken.id,
-      user_id: userToken.userId,
-    };
+    await EtherealMail.sendMail({
+      to: email,
+      body: userToken.id,
+    });
   }
 }
 
