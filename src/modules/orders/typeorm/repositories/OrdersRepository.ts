@@ -15,9 +15,17 @@ interface IRequest {
 
 @EntityRepository(Order)
 class OrdersRepository extends Repository<Order> {
+  public async findAll(): Promise<Order[]> {
+    const orders = await this.find({
+      relations: ['customer', 'order_products'],
+    });
+
+    return orders;
+  }
+
   public findById(orderId: string): Promise<Order | undefined> {
     const order = this.findOne(orderId, {
-      relations: ['customer', 'orders_products'],
+      relations: ['customer', 'order_products'],
     });
 
     return order;

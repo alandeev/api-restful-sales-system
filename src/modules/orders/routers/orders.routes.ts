@@ -9,6 +9,12 @@ const ordersRoutes = Router();
 const ordersControllers = new OrdersControllers();
 
 ordersRoutes.get(
+  '/',
+  isAuthenticated,
+  ordersControllers.index
+);
+
+ordersRoutes.get(
   '/:order_id',
   isAuthenticated,
   celebrate({
