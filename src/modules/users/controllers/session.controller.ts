@@ -16,8 +16,10 @@ class UserController {
   }
 
   public async oAuth(request: Request, response: Response): Promise<Response> {
+    const { id: userId } = request.user;
+
     const getUserService = new GetUserService();
-    const user = await getUserService.execute(request.user.id);
+    const user = await getUserService.execute({ userId});
 
     return response.json(user);
   }

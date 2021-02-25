@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import { CreateUserService } from '../services/CreateUserService';
+import { GetUserService } from '../services/GetUserService';
 import { ListUserService } from '../services/ListUserService';
 
 class UserController {
-  public async index(_: Request, response: Response): Promise<Response> {
-    const listUserService = new ListUserService();
-    const users = await listUserService.execute();
+  public async get(request: Request, response: Response): Promise<Response> {
+    const getUser = new GetUserService();
+    const user = await getUser.execute({ userId: request.user.id });
 
-    return response.json(users);
+    return response.json(user);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {

@@ -15,8 +15,6 @@ const upload = multer(uploadConfig);
 
 const routes = Router();
 
-routes.get('/', userController.index);
-
 //create user
 routes.post(
   '/',

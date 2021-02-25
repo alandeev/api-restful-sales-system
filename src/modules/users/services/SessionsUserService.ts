@@ -11,8 +11,13 @@ interface IRequest {
   password: string;
 }
 
+interface IResponse {
+  status: string;
+  token: string;
+}
+
 class SessionsUserService {
-  public async execute({ email, password }: IRequest) {
+  public async execute({ email, password }: IRequest): Promise<IResponse> {
     const userRepository = getCustomRepository(UserRepository);
 
     const user = await userRepository.findByEmail(email);
@@ -29,7 +34,10 @@ class SessionsUserService {
       expiresIn: tokenConfig.expireIn
     });
 
-    return token;
+    return {
+      status: 'success',
+      token: `Bearer ${token}`,
+    };
   }
 }
 
