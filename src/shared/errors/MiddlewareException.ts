@@ -33,6 +33,8 @@ export default (
     });
   }
 
+  console.log(error);
+
   return response.status(400).json({
     status: 'error',
     message: 'Internal error server',
