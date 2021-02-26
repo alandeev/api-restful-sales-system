@@ -20,7 +20,7 @@ class SessionsUserService {
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const userRepository = getCustomRepository(UserRepository);
 
-    const user = await userRepository.findByEmail(email);
+    const user = await userRepository.findByEmail(email, true);
     if(!user) {
       throw new HttpException("User not exists", 401);
     }

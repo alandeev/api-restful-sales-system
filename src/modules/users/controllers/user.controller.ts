@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { CreateUserService } from '../services/CreateUserService';
 import { GetUserService } from '../services/GetUserService';
-import { ListUserService } from '../services/ListUserService';
 
 class UserController {
   public async get(request: Request, response: Response): Promise<Response> {

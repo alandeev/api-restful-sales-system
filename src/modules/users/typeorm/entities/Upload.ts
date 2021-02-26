@@ -19,7 +19,7 @@ class Upload {
 
   @BeforeInsert()
   beforeInsert(data: any) {
-    console.log({ data, teste: true })
+    console.log({ this: this, teste: true })
   }
 }
 

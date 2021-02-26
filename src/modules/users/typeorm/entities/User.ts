@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne } from 'typeorm';
 import UserPerfil from './UserPerfil';
 
@@ -13,6 +14,7 @@ class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @OneToOne(type => UserPerfil, { cascade: true })
