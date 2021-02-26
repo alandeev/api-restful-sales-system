@@ -1,4 +1,4 @@
-## NodeJS + Typescript + TypeORM 😁
+## A great project with NodeJS and other techs 🚀
 ___
 ## Project experience 📋
 > With this project, I understood how the scalable server backend works, I also implemented features that help the system not to break. resource example is Rate Limiter Flexible which implements idea to block many requests in the interval that I define. I also implemented Redis which made the server gain greater performance, saving data on the machine's memory disk, only changing it when necessary.
