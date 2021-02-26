@@ -8,11 +8,15 @@ import { pagination } from 'typeorm-pagination';
 import routes from './routers';
 import { uploadConfig } from '@config/upload.config';
 import middlewareException from '@shared/errors/MiddlewareException';
+import rateLimiter from '@shared/http/middlewares/rateLimiter';
+
 
 const app = express();
 
 app.use('/files', express.static(uploadConfig.dest));
 app.use(express.json());
+
+app.use(rateLimiter);
 
 app.use(pagination);
 
