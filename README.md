@@ -22,14 +22,24 @@ ___
 ```js
 {
   title: "API Restful Javascript com Node.js, Typescript, TypeORM etc",
-  description: "",
-  what_i_learn: [
-    "Typescript",
-    "TypeORM",
+  description: "i don't can describle, you need to see!",
+  contents: [
+    "RestFull API",
+    "CORS",
+    "Hlanding errors",
+    "Router System",
+    "Middlewares",
+    "Crud",
+    "TypeORM with the Repository standard",
+    "Migrations",
+    "Relationalying Many-to-Many",
+    "Filesystem/upload of files",
+    "Amazon S3 Bucket File Storage",
+    "Sending fake email (dev env) and professional email with Zoho Mail and Amazon SES",
+    "Authentication with JWT Token",
     "Cache with Redis",
-    "AWS",
-    "Great Structure of Project Scalable",
-    "Standard for handling Errors Globally"
+    "DDoS Protection",
+    "Deploy to production at Digital Ocean",
   ],
   stars: 5,
   language: "pt-BR"
