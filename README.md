@@ -11,10 +11,11 @@ ___
 ```
 
 ## Features Implemented
+- Understand structure and concepts 🟨
 - System: Users / Customers / Orders / Products 🟧
 - Redis 🟩 - perfomance 😍
 - Rate Limiter Flexible 'bye DDOS' 🟩
-- Docker Contianer ['redis/redis-client']
+- Docker Container ['redis/redis-client'] 🟨
 
 ## Course I attended to learn about it all.
 ### Resume
